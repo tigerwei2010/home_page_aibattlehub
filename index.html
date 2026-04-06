@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Battle, Inc.</title>
+<link rel="icon" type="image/png" href="logo_200.png">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --primary:#f5a623;
+    --glow:rgba(245,166,35,.6);
+    --bg:#0a0e17;
+    --surface:rgba(255,255,255,.04);
+  }
+
+  html{scroll-behavior:smooth}
+
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:#e0e6f0;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  /* ── Hero Section ── */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:2rem;
+    overflow:hidden;
+  }
+
+  .hero-bg{
+    position:absolute;inset:-20px;
+    clip-path:inset(0);
+    background:url('use_this.jpg') center/cover no-repeat;
+    z-index:0;
+    animation:kenBurns 25s ease-in-out infinite alternate;
+  }
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:
+      linear-gradient(180deg,rgba(10,14,23,.45) 0%,rgba(10,14,23,.25) 40%,rgba(10,14,23,.55) 100%);
+  }
+  @keyframes kenBurns{
+    0%{transform:scale(1) translate(0,0)}
+    50%{transform:scale(1.05) translate(-10px,-5px)}
+    100%{transform:scale(1.03) translate(8px,4px)}
+  }
+
+  /* Floating particles — subtle, pointer-events:none so they don't block */
+  .particles{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+  .particle{
+    position:absolute;
+    width:2px;height:2px;
+    background:var(--primary);
+    border-radius:50%;
+    opacity:0;
+    animation:floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(100vh) scale(0);opacity:0}
+    10%{opacity:.5}
+    90%{opacity:.2}
+    100%{transform:translateY(-10vh) scale(1);opacity:0}
+  }
+
+  .hero-content{
+    position:relative;z-index:2;
+    max-width:960px;
+    width:90%;
+  }
+
+  /* Logo — gentle float + breathing glow */
+  .logo{
+    width:120px;height:120px;
+    margin:0 auto 2rem;
+    animation:logoFloat 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 30px var(--glow));
+  }
+  .logo img{width:100%;height:100%;object-fit:contain}
+  @keyframes logoFloat{
+    0%,100%{transform:translateY(0);filter:drop-shadow(0 0 25px var(--glow))}
+    50%{transform:translateY(-12px);filter:drop-shadow(0 0 45px var(--glow)) drop-shadow(0 0 80px rgba(245,166,35,.2))}
+  }
+
+  /* Company name */
+  .company-name{
+    font-size:clamp(2.5rem,6vw,4.5rem);
+    font-weight:800;
+    letter-spacing:.04em;
+    background:linear-gradient(135deg,#fff 30%,var(--primary) 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:1.5rem;
+    opacity:0;
+    animation:fadeSlideUp .8s ease forwards .3s;
+  }
+
+  /* Tagline */
+  .tagline{
+    font-size:clamp(1.1rem,2.5vw,1.5rem);
+    color:#fff;
+    margin-bottom:3rem;
+    line-height:1.6;
+    opacity:0;
+    animation:fadeSlideUp .8s ease forwards .6s;
+    text-shadow:0 2px 12px rgba(0,0,0,.8),0 0 40px rgba(0,0,0,.5);
+  }
+  .tagline em{
+    font-style:normal;
+    color:var(--primary);
+    font-weight:600;
+    text-shadow:0 2px 12px rgba(0,0,0,.9),0 0 20px rgba(245,166,35,.3);
+  }
+
+  /* Manifesto */
+  .manifesto{
+    margin-bottom:3rem;
+    opacity:0;
+    animation:fadeSlideUp .8s ease forwards .9s;
+    padding:2.5rem 3rem;
+    border-left:4px solid var(--primary);
+    background:rgba(10,14,23,.65);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-radius:0 12px 12px 0;
+    box-shadow:0 8px 40px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.06);
+    text-align:left;
+  }
+  .manifesto-label{
+    font-size:.75rem;
+    text-transform:uppercase;
+    letter-spacing:.25em;
+    color:var(--primary);
+    margin-bottom:1rem;
+    font-weight:600;
+    text-align:left;
+  }
+  .manifesto-line{
+    font-size:clamp(1.2rem,2.8vw,1.8rem);
+    font-weight:300;
+    line-height:1.6;
+    color:#fff;
+    letter-spacing:.02em;
+    text-shadow:0 2px 8px rgba(0,0,0,.5);
+    text-align:left;
+  }
+  .manifesto-line:last-child{
+    color:var(--primary);
+    font-weight:700;
+    font-size:clamp(1.5rem,3.5vw,2.4rem);
+    text-shadow:0 2px 12px rgba(0,0,0,.6),0 0 30px rgba(245,166,35,.2);
+    text-align:left;
+  }
+
+  /* Divider */
+  .divider{
+    width:80px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--primary),transparent);
+    margin:0 auto 2.5rem;
+    opacity:0;
+    animation:fadeSlideUp .8s ease forwards .8s;
+  }
+
+  /* Store badges */
+  .store-section{
+    opacity:0;
+    animation:fadeSlideUp .8s ease forwards 1.2s;
+  }
+  .coming-soon-label{
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    color:var(--primary);
+    margin-bottom:1.2rem;
+  }
+  .store-badges{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:.6rem;
+    padding:.75rem 1.5rem;
+    border:1px solid rgba(245,166,35,.3);
+    border-radius:12px;
+    background:rgba(245,166,35,.06);
+    color:#e0e6f0;
+    font-size:.95rem;
+    font-weight:500;
+    transition:all .3s ease;
+    cursor:default;
+    text-decoration:none;
+  }
+  .badge:hover{
+    border-color:var(--primary);
+    background:rgba(245,166,35,.12);
+    transform:translateY(-2px);
+    box-shadow:0 8px 30px rgba(245,166,35,.15);
+  }
+  .badge svg{width:22px;height:22px;fill:currentColor}
+
+  /* Scroll indicator */
+  .scroll-hint{
+    position:absolute;bottom:2rem;z-index:2;
+    animation:bounce 2s ease-in-out infinite;
+    opacity:.5;
+  }
+  .scroll-hint svg{width:28px;height:28px;stroke:var(--primary);fill:none;stroke-width:2}
+  @keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(8px)}
+  }
+
+  /* ── Footer ── */
+  footer{
+    position:relative;z-index:2;
+    text-align:center;
+    padding:2rem;
+    border-top:1px solid rgba(245,166,35,.08);
+    font-size:.8rem;
+    color:rgba(224,230,240,.4);
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeSlideUp{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* ── Responsive ── */
+  @media(max-width:600px){
+    .logo{width:90px;height:90px;margin-bottom:1.5rem}
+    .store-badges{flex-direction:column;align-items:center}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="logo"><img src="logo_200.png" alt="AI Battle Logo"></div>
+    <h1 class="company-name">AI Battle, Inc.</h1>
+    <p class="tagline">The place where AI challenges AI — <em>for you</em>.</p>
+
+    <div class="divider"></div>
+
+    <div class="manifesto">
+      <p class="manifesto-label">Our Manifesto</p>
+      <p class="manifesto-line">People are the measure of all things.</p>
+      <p class="manifesto-line">Even AI.</p>
+    </div>
+
+    <div class="store-section">
+      <p class="coming-soon-label">Coming Soon</p>
+      <div class="store-badges">
+        <span class="badge">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+          App Store
+        </span>
+        <span class="badge">
+          <svg viewBox="0 0 24 24"><path d="M3.18 23.67L14.83 12 3.18.33a.67.67 0 0 0-.18.46v22.42c0 .17.07.34.18.46zm1.5.82l13.03-7.52-2.88-2.88L4.68 24.49zm15.35-8.7l-3.5-2.02L13.7 12l2.83-1.77 3.5-2.02a.67.67 0 0 1 .67 0l.01.01a.67.67 0 0 1 0 1.16l-1.48.91zM4.68-.49L16.53 9.9l2.88-2.88L6.38-1.5a.67.67 0 0 0-.85.16l-.85.85z"/></svg>
+          Google Play
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 AI Battle, Inc. All rights reserved.
+</footer>
+
+<script>
+  // Generate floating particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (6 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+    container.appendChild(p);
+  }
+</script>
+</body>
+</html>
