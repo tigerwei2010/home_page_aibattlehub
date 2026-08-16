@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Battle</title>
+<meta name="description" content="AI Battle, Inc. builds TeamClash — youth soccer team ratings, game highlights, and team chat.">
 <link rel="icon" type="image/png" href="logo_200.png">
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -202,9 +203,13 @@
     font-size:.95rem;
     font-weight:500;
     transition:all .3s ease;
-    cursor:default;
+    cursor:pointer;
     text-decoration:none;
   }
+  .badge img{border-radius:7px;display:block}
+  .badge-text{display:flex;flex-direction:column;align-items:flex-start;text-align:left;line-height:1.35}
+  .badge-name{font-weight:700;color:#fff}
+  .badge-desc{font-size:.8rem;color:rgba(224,230,240,.7)}
   .badge:hover{
     border-color:var(--primary);
     background:rgba(245,166,35,.12);
@@ -263,7 +268,7 @@
   <div class="hero-content">
     <div class="logo"><img src="logo_200.png" alt="AI Battle Logo"></div>
     <h1 class="company-name">AI Battle</h1>
-    <p class="tagline">The place where AI challenges AI — <em>for you</em>.</p>
+    <p class="tagline">We build products that keep <em>people</em> at the center of AI.</p>
 
     <div class="divider"></div>
 
@@ -274,16 +279,15 @@
     </div>
 
     <div class="store-section">
-      <p class="coming-soon-label">Coming Soon</p>
+      <p class="coming-soon-label">Our Products</p>
       <div class="store-badges">
-        <span class="badge">
-          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
-          App Store
-        </span>
-        <span class="badge">
-          <svg viewBox="0 0 24 24"><path d="M3.18 23.67L14.83 12 3.18.33a.67.67 0 0 0-.18.46v22.42c0 .17.07.34.18.46zm1.5.82l13.03-7.52-2.88-2.88L4.68 24.49zm15.35-8.7l-3.5-2.02L13.7 12l2.83-1.77 3.5-2.02a.67.67 0 0 1 .67 0l.01.01a.67.67 0 0 1 0 1.16l-1.48.91zM4.68-.49L16.53 9.9l2.88-2.88L6.38-1.5a.67.67 0 0 0-.85.16l-.85.85z"/></svg>
-          Google Play
-        </span>
+        <a class="badge" href="https://teamclash.ai" target="_blank" rel="noopener noreferrer">
+          <img src="data:image/png;base64,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" alt="" width="30" height="30">
+          <span class="badge-text">
+            <span class="badge-name">TeamClash</span>
+            <span class="badge-desc">Youth soccer team ratings, highlights &amp; team chat</span>
+          </span>
+        </a>
       </div>
     </div>
   </div>
