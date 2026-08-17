@@ -246,16 +246,103 @@
   }
   footer a:hover{opacity:.7}
 
+  /* ── About Section ── */
+  .about{
+    position:relative;z-index:2;
+    padding:6rem 2rem 4rem;
+    background:linear-gradient(180deg,var(--bg) 0%,#0d1220 100%);
+  }
+  .about-inner{max-width:820px;margin:0 auto}
+
+  .section-label{
+    font-size:.75rem;
+    text-transform:uppercase;
+    letter-spacing:.25em;
+    color:var(--primary);
+    font-weight:600;
+    margin-bottom:1rem;
+  }
+  .about h2{
+    font-size:clamp(1.8rem,4vw,2.6rem);
+    font-weight:700;
+    color:#fff;
+    line-height:1.25;
+    margin-bottom:1.75rem;
+  }
+  .about p{
+    font-size:clamp(1rem,2vw,1.15rem);
+    line-height:1.8;
+    color:rgba(224,230,240,.85);
+    margin-bottom:1.25rem;
+  }
+  .about p em{font-style:normal;color:var(--primary);font-weight:600}
+  .about p strong{color:#fff;font-weight:600}
+  .about p .hl{color:var(--primary);font-weight:700}
+
+  /* Identity block — mirrors the hero manifesto's glass + left-rule treatment */
+  .identity{
+    margin-top:3rem;
+    padding:2rem 2.5rem;
+    border-left:4px solid var(--primary);
+    background:var(--surface);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-radius:0 12px 12px 0;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+  }
+  .identity-name{
+    font-size:1.05rem;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:.35rem;
+  }
+  .identity-meta{
+    font-size:.95rem;
+    line-height:1.7;
+    color:rgba(224,230,240,.7);
+    font-style:normal;
+  }
+  .identity-meta a{color:var(--primary);text-decoration:none}
+  .identity-meta a:hover{text-decoration:underline}
+  .identity-links{
+    margin-top:1.25rem;
+    padding-top:1.25rem;
+    border-top:1px solid rgba(255,255,255,.08);
+    font-size:.9rem;
+    color:rgba(224,230,240,.5);
+  }
+  .identity-links a{color:var(--primary);text-decoration:none}
+  .identity-links a:hover{text-decoration:underline}
+
   /* ── Animations ── */
   @keyframes fadeSlideUp{
     from{opacity:0;transform:translateY(24px)}
     to{opacity:1;transform:translateY(0)}
   }
 
+  /* Scroll reveal: content is visible by default so a no-JS reader still gets
+     it; the .js class (set by script) opts into the entrance animation.
+     Deliberately a transition, not an animation — the revealed state is a real
+     style, so a dropped frame or an interrupted animation can never leave the
+     copy stuck at opacity:0. */
+  .js .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .8s ease,transform .8s ease;
+  }
+  .js .reveal.visible{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    .logo,.hero-bg,.scroll-hint,.particle{animation:none!important}
+    .js .reveal{opacity:1;transform:none;transition:none}
+  }
+
   /* ── Responsive ── */
   @media(max-width:600px){
     .logo{width:90px;height:90px;margin-bottom:1.5rem}
     .store-badges{flex-direction:column;align-items:center}
+    .about{padding:4rem 1.5rem 3rem}
+    .identity{padding:1.5rem 1.5rem}
   }
 </style>
 </head>
@@ -292,13 +379,58 @@
     </div>
   </div>
 
-  <div class="scroll-hint">
+  <a class="scroll-hint" href="#about" aria-label="Read more about AI Battle">
     <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <p class="section-label reveal">About Us</p>
+    <h2 class="reveal">A start-up building for the people in the game.</h2>
+
+    <p class="reveal">AI Battle, Inc. is an independent start-up based in Seattle. We build
+    <a href="https://teamclash.ai" style="color:var(--primary);text-decoration:none">TeamClash</a> —
+    team ratings, game highlights, and team chat for youth soccer.</p>
+
+    <p class="reveal"><strong>We want to take the friction out of a season.</strong> The information
+    already exists — scores, standings, rosters, video — but it is scattered across league sites, club
+    portals, and a dozen group threads. The families actually living the season end up doing the most
+    work to keep up with it. TeamClash puts it in one place: an honest rating, a highlight worth
+    keeping, and somewhere for the team to talk.</p>
+
+    <p class="reveal"><strong>And we want to back the people who hold youth soccer together.</strong>
+    Coaches and club staff keep teams running, mostly on their own time. We are not going to charge
+    them for the tools that make it easier — verified coaches <span class="hl">get TeamClash Pro
+    membership free</span>, and so do the team staff they bring on.</p>
+
+    <p class="reveal">Our users include minors, so we hold the product to a stricter standard than the
+    law asks of us. We do not sell personal information, and we do not share it for cross-context
+    behavioral advertising. We decline registration for anyone under 13. We strip location and device
+    metadata from every photo and video before it is stored. And our ratings are statistical estimates
+    published for interest and conversation — never an official evaluation of any child.</p>
+
+    <p class="reveal"><em>People are the measure of all things. Even AI.</em> It is on the front of this
+    page because it is the test we apply to what we ship.</p>
+
+    <div class="identity reveal">
+      <p class="identity-name">AI Battle, Inc.</p>
+      <address class="identity-meta">
+        A Delaware corporation<br>
+        1522 Western Ave, STE 98661<br>
+        Seattle, WA 98101<br>
+        <a href="mailto:contact@aibattlehub.com">contact@aibattlehub.com</a>
+      </address>
+      <p class="identity-links">
+        <a href="https://api.teamclash.ai/terms">Terms of Service</a> &middot;
+        <a href="https://api.teamclash.ai/privacy">Privacy Policy</a>
+      </p>
+    </div>
   </div>
 </section>
 
 <footer>
-  <a href="https://www.linkedin.com/in/andyweius/" target="_blank" rel="noopener noreferrer">About Us</a> &middot; &copy; 2026 AI Battle, Inc. All rights reserved.
+  <a href="#about">About Us</a> &middot; &copy; 2026 AI Battle, Inc. All rights reserved.
 </footer>
 
 <script>
@@ -313,6 +445,45 @@
     p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
     container.appendChild(p);
   }
+
+  // Scroll reveal for the About section.
+  //
+  // Two safety properties matter more here than the effect itself, because a
+  // failure hides the copy instead of degrading it:
+  //   1. The .js class is what activates the hiding CSS, so if this script never
+  //      runs the section renders plainly and fully visible.
+  //   2. Revealing runs off plain scroll/resize/load handlers, NOT an
+  //      IntersectionObserver. An observer that never fires — offscreen frame,
+  //      zero-height viewport, prerender — strands every element at opacity:0
+  //      with no way to recover. getBoundingClientRect is evaluated on demand,
+  //      so any later scroll or resize re-checks and heals it.
+  document.documentElement.classList.add('js');
+  const reveals = [...document.querySelectorAll('.reveal')];
+  reveals.forEach((el, i) => { el.style.transitionDelay = (i * 0.08) + 's'; });
+
+  function revealInView() {
+    let pending = false;
+    for (const el of reveals) {
+      if (el.classList.contains('visible')) continue;
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('visible');
+      else pending = true;
+    }
+    if (!pending) {
+      window.removeEventListener('scroll', revealInView);
+      window.removeEventListener('resize', revealInView);
+    }
+  }
+  window.addEventListener('scroll', revealInView, { passive: true });
+  window.addEventListener('resize', revealInView);
+  window.addEventListener('load', revealInView);
+  revealInView();
+
+  // Last-resort safety net. Everything above still depends on an event firing,
+  // and there are environments that never deliver one (prerender, some embedded
+  // webviews, a programmatically scrolled offscreen frame). Losing a decorative
+  // fade is nothing; shipping an About page whose text is invisible is not. So
+  // after 4s, reveal unconditionally regardless of position.
+  setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 4000);
 </script>
 </body>
 </html>
